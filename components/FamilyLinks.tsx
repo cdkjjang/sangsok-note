@@ -20,6 +20,10 @@ const SITES = [
   { slug: "bill", name: "공과금노트", url: "https://bill.lifebanjang.com", desc: "전기요금·도시가스·수도요금" },
   { slug: "toesa", name: "퇴사노트", url: "https://toesa.lifebanjang.com", desc: "실업급여·수급자격·조기재취업수당" },
   { slug: "sangsok", name: "상속노트", url: "https://sangsok.lifebanjang.com", desc: "상속세·상속분·상속등기" },
+  // ⚠️ 임시 제거: health.lifebanjang.com이 아직 Vercel·DNS에 연결되지 않았다.
+  //    존재하지 않는 도메인으로 푸터 링크가 나가면 전 페이지에 깨진 링크가 생긴다.
+  //    **연결이 끝나면 아래 줄의 주석을 풀 것.** (허브 lib/notes.ts의 status도 함께)
+  //  { slug: "health", name: "건강보험노트", url: "https://health.lifebanjang.com", desc: "피부양자·병원비 환급·건강검진" },
 ];
 
 export default function FamilyLinks() {
