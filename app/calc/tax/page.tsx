@@ -254,6 +254,12 @@ export default function TaxPage() {
           <li><Link href="/calc/share" className="text-accent underline-offset-4 hover:underline">법정상속분 계산기 →</Link></li>
           <li><Link href="/calc/deadline" className="text-accent underline-offset-4 hover:underline">상속 기한 D-day 계산기 →</Link></li>
           <li><Link href="/guide/inheritance-tax-threshold" className="text-accent underline-offset-4 hover:underline">우리 집은 상속세 낼 일이 있나 →</Link></li>
+          {/* 사전증여는 상속세 계산에 합산되므로 두 세금을 같이 봐야 한다.
+              증여세 계산은 세금노트 몫이라 여기서 다시 만들지 않는다. */}
+          <li>
+            <a href="https://tax.lifebanjang.com/calc/gift-tax" className="text-accent underline-offset-4 hover:underline">증여세 계산기 (세금노트) →</a>
+            <span className="block text-sm text-muted">생전에 미리 나눠 주는 쪽이 나은지 비교할 때. 사망 전 10년 이내의 증여는 상속재산에 합산됩니다.</span>
+          </li>
         </ul>
       </section>
     </div>

@@ -238,6 +238,12 @@ export default function RegistrationPage() {
           <li><Link href="/calc/deadline" className="text-accent underline-offset-4 hover:underline">상속 기한 D-day 계산기 →</Link></li>
           <li><Link href="/calc/share" className="text-accent underline-offset-4 hover:underline">법정상속분 계산기 →</Link></li>
           <li><Link href="/guide/inheritance-registration" className="text-accent underline-offset-4 hover:underline">상속등기 직접 하는 법 →</Link></li>
+          {/* 상속 취득세율(2.8%)과 매매 취득세율은 다르다. 물려받은 집을 나중에
+              팔거나, 형제 지분을 사서 정리하는 경우가 흔해 부동산노트로 보낸다. */}
+          <li>
+            <a href="https://budongsan.lifebanjang.com/calc/acquisition" className="text-accent underline-offset-4 hover:underline">매매 취득세 계산기 (부동산노트) →</a>
+            <span className="block text-sm text-muted">상속 취득세율과 매매 취득세율은 다릅니다. 다른 상속인의 지분을 사서 정리하는 경우에 필요합니다.</span>
+          </li>
         </ul>
       </section>
     </div>
