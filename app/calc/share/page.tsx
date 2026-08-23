@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CalcGuides from "@/components/CalcGuides";
 import Link from "next/link";
 import LegalShareCalculator from "@/components/LegalShareCalculator";
 import AdSlot from "@/components/AdSlot";
@@ -238,6 +239,7 @@ export default function SharePage() {
           <li><Link href="/guide/who-inherits" className="text-accent underline-offset-4 hover:underline">누가 상속인이 되나 — 순위와 대습상속 →</Link></li>
         </ul>
       </section>
+      <CalcGuides calcHref="/calc/share" />
     </div>
   );
 }

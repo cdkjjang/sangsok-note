@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CalcGuides from "@/components/CalcGuides";
 import Link from "next/link";
 import DeadlineCalculator from "@/components/DeadlineCalculator";
 import AdSlot from "@/components/AdSlot";
@@ -235,6 +236,7 @@ export default function DeadlinePage() {
           <li><Link href="/guide/renounce-or-limited" className="text-accent underline-offset-4 hover:underline">빚이 더 많을 때 — 포기와 한정승인 →</Link></li>
         </ul>
       </section>
+      <CalcGuides calcHref="/calc/deadline" />
     </div>
   );
 }

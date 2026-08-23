@@ -357,7 +357,7 @@ export const guides1: Guide[] = [
         a: "수익자가 상속인으로 지정된 사망보험금은 상속재산이 아니라 수익자의 고유재산으로 봅니다. 그래서 상속을 포기해도 받을 수 있다는 것이 판례의 태도입니다. 다만 수익자가 '피상속인 본인'으로 되어 있으면 상속재산이 되므로 확인이 필요합니다.",
       },
     ],
-    related: ["first-30-days", "inheritance-debt-check", "who-inherits"],
+    related: ["first-30-days", "find-inherited-assets", "who-inherits"],
     cta: { href: "/calc/deadline", label: "3개월 기한 확인하기" },
   },
 
