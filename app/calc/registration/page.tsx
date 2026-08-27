@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CalcGuides from "@/components/CalcGuides";
+import NextStep from "@/components/NextStep";
 import RelatedTools from "@/components/RelatedTools";
 import Link from "next/link";
 import RegistrationCalculator from "@/components/RegistrationCalculator";
@@ -69,6 +70,8 @@ export default function RegistrationPage() {
       </p>
 
       <RegistrationCalculator />
+
+      <NextStep calc="/calc/registration" />
 
       <AdSlot slot="registration-below-tool" />
 

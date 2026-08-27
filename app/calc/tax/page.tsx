@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CalcGuides from "@/components/CalcGuides";
+import NextStep from "@/components/NextStep";
 import RelatedTools from "@/components/RelatedTools";
 import Link from "next/link";
 import InheritanceTaxCalculator from "@/components/InheritanceTaxCalculator";
@@ -69,6 +70,8 @@ export default function TaxPage() {
       </p>
 
       <InheritanceTaxCalculator />
+
+      <NextStep calc="/calc/tax" />
 
       <AdSlot slot="tax-below-tool" />
 

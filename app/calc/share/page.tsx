@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CalcGuides from "@/components/CalcGuides";
+import NextStep from "@/components/NextStep";
 import RelatedTools from "@/components/RelatedTools";
 import Link from "next/link";
 import LegalShareCalculator from "@/components/LegalShareCalculator";
@@ -68,6 +69,8 @@ export default function SharePage() {
       </p>
 
       <LegalShareCalculator />
+
+      <NextStep calc="/calc/share" />
 
       <AdSlot slot="share-below-tool" />
 

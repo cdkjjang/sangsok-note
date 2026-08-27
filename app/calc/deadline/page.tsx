@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CalcGuides from "@/components/CalcGuides";
+import NextStep from "@/components/NextStep";
 import RelatedTools from "@/components/RelatedTools";
 import Link from "next/link";
 import DeadlineCalculator from "@/components/DeadlineCalculator";
@@ -69,6 +70,8 @@ export default function DeadlinePage() {
       </p>
 
       <DeadlineCalculator />
+
+      <NextStep calc="/calc/deadline" />
 
       <AdSlot slot="deadline-below-tool" />
 
