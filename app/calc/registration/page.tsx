@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CalcGuides from "@/components/CalcGuides";
+import RelatedTools from "@/components/RelatedTools";
 import Link from "next/link";
 import RegistrationCalculator from "@/components/RegistrationCalculator";
 import AdSlot from "@/components/AdSlot";
@@ -248,6 +249,7 @@ export default function RegistrationPage() {
         </ul>
       </section>
       <CalcGuides calcHref="/calc/registration" />
+      <RelatedTools calc="/calc/registration" />
     </div>
   );
 }
