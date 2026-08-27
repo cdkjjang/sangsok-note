@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateField, ResultCard } from "./fields";
 import OptionGroup from "./OptionGroup";
 import { calcDeadlines, mostUrgent, type Urgency } from "@/lib/deadline";
@@ -42,10 +42,20 @@ export default function DeadlineCalculator() {
   const [knownDate, setKnownDate] = useState("");
   const [abroad, setAbroad] = useState<"yes" | "no">("no");
 
-  const today = todayISO();
+  // 정적 프리렌더라 렌더 본문에서 오늘 날짜를 구하면 서버 HTML에 '빌드 날짜' 기준
+  // D-day가 담겨 브라우저 계산과 어긋난다. 마운트 후에 채운다.
+  // 3개월 기한은 놓치면 빚까지 상속되는 기한이라 날짜가 특히 중요하다.
+  const [today, setToday] = useState("");
+  useEffect(() => {
+    setToday(todayISO());
+  }, []);
+
   const known = sameDay === "yes" ? deathDate : knownDate || deathDate;
 
-  const rows = deathDate ? calcDeadlines({ deathDate, knownDate: known, today, abroad: abroad === "yes" }) : [];
+  const rows =
+    deathDate && today
+      ? calcDeadlines({ deathDate, knownDate: known, today, abroad: abroad === "yes" })
+      : [];
   const urgent = rows.length ? mostUrgent(rows) : null;
 
   return (
