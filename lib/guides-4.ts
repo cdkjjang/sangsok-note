@@ -109,7 +109,7 @@ export const guides4: Guide[] = [
         a: "나중에 쓴 것이 우선합니다. 내용이 충돌하는 부분에 한해 앞의 유언이 철회된 것으로 봅니다. 혼란을 줄이려면 이전 유언을 철회한다는 뜻을 명시하는 편이 좋습니다.",
       },
     ],
-    related: ["who-inherits", "legal-share-basics", "inheritance-dispute"],
+    related: ["legal-share-basics", "inheritance-dispute"],
     cta: { href: "/calc/share", label: "법정상속분 계산해 보기" },
   },
 ];

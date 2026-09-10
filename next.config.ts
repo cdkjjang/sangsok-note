@@ -24,6 +24,23 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+
+  // 2026-09-10 가이드 통합으로 사라진 슬러그 → 흡수한 글로 301.
+  //
+  // permanent: true는 308로 나가고 구글은 301과 같게 처리한다.
+  // **이 목록을 지우지 말 것.** 지우는 순간 옛 URL이 404가 된다.
+  //
+  // '누가 상속인인가'와 '얼마씩 받나'는 한 질문의 앞뒤다. 계산 엔진
+  // `lib/legal-share.ts`도 '순위 판정이 먼저, 지분은 그다음'으로 되어 있다.
+  async redirects() {
+    return [
+      {
+        source: "/guide/who-inherits",
+        destination: "/guide/legal-share-basics",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

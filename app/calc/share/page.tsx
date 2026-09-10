@@ -240,7 +240,7 @@ export default function SharePage() {
         <ul className="space-y-2 text-[15px]">
           <li><Link href="/calc/tax" className="text-accent underline-offset-4 hover:underline">상속세 계산기 →</Link></li>
           <li><Link href="/calc/deadline" className="text-accent underline-offset-4 hover:underline">상속 기한 D-day 계산기 →</Link></li>
-          <li><Link href="/guide/who-inherits" className="text-accent underline-offset-4 hover:underline">누가 상속인이 되나 — 순위와 대습상속 →</Link></li>
+          <li><Link href="/guide/legal-share-basics" className="text-accent underline-offset-4 hover:underline">누가 상속인이 되나 — 순위와 대습상속 →</Link></li>
         </ul>
       </section>
       <CalcGuides calcHref="/calc/share" />

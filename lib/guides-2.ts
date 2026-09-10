@@ -443,7 +443,7 @@ export const guides2: Guide[] = [
         a: "지켜야 합니다. 분할이 안 됐다면 법정상속분대로 신고하고, 나중에 분할이 확정되면 경정청구를 할 수 있습니다. 기한을 넘기면 가산세가 붙고 신고세액공제 3%도 못 받습니다.",
       },
     ],
-    related: ["legal-share-basics", "inheritance-registration", "who-inherits"],
+    related: ["legal-share-basics", "inheritance-registration"],
     cta: { href: "/calc/share", label: "법정상속분 확인하기" },
   },
 ];
