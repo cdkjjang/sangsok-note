@@ -10,9 +10,11 @@ describe("법정 지분 고정", () => {
   it("배우자는 다른 상속인의 1.5배", () => {
     expect(SPOUSE_RATIO).toBe(1.5);
   });
-  it("유류분 — 직계비속·배우자 1/2, 직계존속·형제자매 1/3", () => {
+  // 민법 제1112조 — 2024.9.20 개정으로 형제자매(제4호) 삭제
+  it("유류분 — 직계비속·배우자 1/2, 직계존속 1/3, 형제자매 없음", () => {
     expect(RESERVED_SHARE.descendantOrSpouse).toBe(0.5);
-    expect(RESERVED_SHARE.ascendantOrSibling).toBeCloseTo(1 / 3, 10);
+    expect(RESERVED_SHARE.ascendant).toBeCloseTo(1 / 3, 10);
+    expect(RESERVED_SHARE.sibling).toBe(0);
   });
 });
 
@@ -122,8 +124,8 @@ describe("3순위 — 형제자매", () => {
     });
     expect(r.rank).toBe(3);
     expect(r.parts[0].amountEach).toBe(100_000_000);
-    // 형제자매 유류분은 1/3
-    expect(r.parts[0].reservedEach).toBe(33_333_333);
+    // 형제자매 유류분은 2024.9.20 삭제됐다
+    expect(r.parts[0].reservedEach).toBe(0);
   });
 });
 

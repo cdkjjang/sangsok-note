@@ -33,12 +33,16 @@ export type HeirType = "spouse" | "child" | "parent" | "sibling";
 export const SPOUSE_RATIO = 1.5;
 export const OTHER_RATIO = 1;
 
-/** 유류분 비율 (민법 제1112조) */
+/** 유류분 비율 (민법 제1112조)
+ *  ⚠️ 2026-09-27 정정: 형제자매 유류분(1/3)은 2024.4.25 헌법재판소 위헌 결정으로
+ *  2024.9.20 개정에서 제4호가 **삭제**됐다. 예전에는 형제자매에게도 1/3을 계산했다. */
 export const RESERVED_SHARE = {
   /** 직계비속·배우자 — 법정상속분의 1/2 */
   descendantOrSpouse: 0.5,
-  /** 직계존속·형제자매 — 법정상속분의 1/3 */
-  ascendantOrSibling: 1 / 3,
+  /** 직계존속 — 법정상속분의 1/3 */
+  ascendant: 1 / 3,
+  /** 형제자매 — 유류분 없음 */
+  sibling: 0,
 } as const;
 
 export interface ShareInput {
@@ -161,7 +165,9 @@ export function calcLegalShare(input: ShareInput): ShareResult {
     const reservedRate =
       coHeirType === "child"
         ? RESERVED_SHARE.descendantOrSpouse
-        : RESERVED_SHARE.ascendantOrSibling;
+        : coHeirType === "parent"
+          ? RESERVED_SHARE.ascendant
+          : RESERVED_SHARE.sibling;
     const label =
       coHeirType === "child" ? "자녀" : coHeirType === "parent" ? "직계존속" : "형제자매";
     parts.push({

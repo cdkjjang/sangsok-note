@@ -16,7 +16,7 @@ export default function RegistrationCalculator() {
   const [kind, setKind] = useState<PropertyKind>("house");
   const [area, setArea] = useState("84");
   const [count, setCount] = useState("1");
-  const [online, setOnline] = useState<"yes" | "no">("no");
+  const [eform, setEform] = useState<"yes" | "no">("no");
 
   const manwon = parseMoney(value);
   const standardValue = manwon === null ? 0 : manwon * 10_000;
@@ -25,7 +25,7 @@ export default function RegistrationCalculator() {
     standardValue,
     kind,
     areaSqm: parseMoney(area) ?? 0,
-    online: online === "yes",
+    eform: eform === "yes",
     count: parseMoney(count) ?? 1,
   });
 
@@ -65,11 +65,11 @@ export default function RegistrationCalculator() {
       <OptionGroup
         label="등기 신청 방법"
         options={[
-          { value: "no" as const, label: "등기소 방문", hint: "15,000원" },
-          { value: "yes" as const, label: "전자신청", hint: "13,000원" },
+          { value: "no" as const, label: "방문 또는 전자신청", hint: "20,000원" },
+          { value: "yes" as const, label: "전자표준양식(e-form)", hint: "17,000원" },
         ]}
-        value={online}
-        onChange={setOnline}
+        value={eform}
+        onChange={setEform}
       />
 
       <ResultCard title="상속등기 예상 비용">

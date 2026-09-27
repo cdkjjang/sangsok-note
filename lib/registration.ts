@@ -39,9 +39,12 @@ export const EDU_RATE_HOUSE_NO_HOME = 0.0016;
 export const FARM_RATE = 0.002;
 export const FARM_EXEMPT_AREA = 85;
 
-/** 등기신청 수수료 (부동산 1건당) */
-export const REGISTRATION_FEE_VISIT = 15_000;
-export const REGISTRATION_FEE_ONLINE = 13_000;
+/** 상속등기 신청수수료 (부동산 1건당) — 등기사항증명서 등 수수료규칙 제5조의2②·제5조의5②
+ *  2025-08-01부터 상속등기를 따로 떼어 올렸다. 서면(방문) 20,000원, 전자표준양식(e-form)
+ *  17,000원이고, **전자신청도 20,000원**이다(일반 소유권이전의 전자신청 할인이 적용되지 않는다).
+ *  ⚠️ 2026-09-27 정정: 예전 값(방문 15,000 / 온라인 13,000)이 1년 넘게 남아 있었다. */
+export const REGISTRATION_FEE_VISIT = 20_000;
+export const REGISTRATION_FEE_EFORM = 17_000;
 
 /** 국민주택채권 매입률은 시가표준액 구간·지역에 따라 다르다.
  *  여기서는 상속등기에서 흔한 어림값만 쓰고, 실제 요율은 안내로 넘긴다. */
@@ -65,8 +68,8 @@ export interface RegistrationInput {
   kind: PropertyKind;
   /** 전용면적 (㎡). 85㎡ 초과면 농어촌특별세가 붙는다 */
   areaSqm: number;
-  /** 온라인(전자) 신청 여부 */
-  online: boolean;
+  /** 전자표준양식(e-form)으로 신청하는지. 방문 서면신청과 전자신청은 같은 금액이다 */
+  eform: boolean;
   /** 부동산 건수 */
   count: number;
 }
@@ -116,7 +119,7 @@ export function calcRegistration(input: RegistrationInput): RegistrationResult {
 
   const taxTotal = acquisitionTax + educationTax + farmTax;
   const registrationFee =
-    (input.online ? REGISTRATION_FEE_ONLINE : REGISTRATION_FEE_VISIT) * count;
+    (input.eform ? REGISTRATION_FEE_EFORM : REGISTRATION_FEE_VISIT) * count;
   const bondEstimate = floor10(value * BOND_DISCOUNT_HINT * 0.01);
 
   return {

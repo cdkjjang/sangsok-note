@@ -26,7 +26,7 @@ const base: RegistrationInput = {
   standardValue: 500_000_000,
   kind: "house",
   areaSqm: 84,
-  online: false,
+  eform: false,
   count: 1,
 };
 
@@ -72,9 +72,10 @@ describe("상속등기 비용", () => {
     expect(r.farmTax).toBe(1_000_000);
   });
 
-  it("등기 수수료는 건수만큼, 온라인이 더 싸다", () => {
-    expect(calcRegistration({ ...base, count: 3 }).registrationFee).toBe(45_000);
-    expect(calcRegistration({ ...base, count: 3, online: true }).registrationFee).toBe(39_000);
+  // 고시값 고정 — 수수료규칙 제5조의2②(20,000)·제5조의5②(17,000), 2025-08-01 시행
+  it("상속등기 수수료는 건수만큼 — 방문·전자신청 20,000, e-form 17,000", () => {
+    expect(calcRegistration({ ...base, count: 3 }).registrationFee).toBe(60_000);
+    expect(calcRegistration({ ...base, count: 3, eform: true }).registrationFee).toBe(51_000);
   });
 
   it("총 비용은 세금 + 수수료 + 채권 할인료", () => {
@@ -86,10 +87,10 @@ describe("상속등기 비용", () => {
     const r = calcRegistration({ ...base, standardValue: 0 });
     expect(r.taxTotal).toBe(0);
     // 등기 수수료는 남는다
-    expect(r.registrationFee).toBe(15_000);
+    expect(r.registrationFee).toBe(20_000);
   });
 
   it("건수는 최소 1로 본다", () => {
-    expect(calcRegistration({ ...base, count: 0 }).registrationFee).toBe(15_000);
+    expect(calcRegistration({ ...base, count: 0 }).registrationFee).toBe(20_000);
   });
 });

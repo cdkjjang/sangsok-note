@@ -252,3 +252,48 @@ describe("세금이 시작되는 지점", () => {
     expect(calcInheritanceTax({ ...solo, realEstate: 600_000_000 }).finalTax).toBeGreaterThan(0);
   });
 });
+
+describe("배우자 단독상속 — 일괄공제를 쓸 수 없다 (제21조 제2항)", () => {
+  // 자녀도 부모도 없어 배우자 혼자 상속하는 경우
+  const alone: InheritanceInput = {
+    ...base,
+    realEstate: 1_000_000_000,
+    financial: 0,
+    spouseShare: 1_000_000_000,
+    spouseLegalShare: 1_000_000_000,
+    heirs: { hasSpouse: true, children: 0, minorAges: [], elderly: 0, disabledYears: [], spouseAlone: true },
+  };
+
+  it("기초공제 2억만 쓰고, 배우자공제는 실제 상속액(10억)", () => {
+    const r = calcInheritanceTax(alone);
+    expect(r.usedLumpSum).toBe(false);
+    expect(r.personalTotal).toBe(200_000_000);
+    expect(r.spouseDeduction).toBe(1_000_000_000);
+    expect(r.finalTax).toBe(0);
+  });
+
+  it("같은 조건에 부모님이 함께 상속하면 일괄공제 5억을 쓴다", () => {
+    const withParents = calcInheritanceTax({
+      ...alone,
+      heirs: { ...alone.heirs, spouseAlone: false },
+    });
+    expect(withParents.usedLumpSum).toBe(true);
+    expect(withParents.personalTotal).toBe(500_000_000);
+  });
+
+  it("배우자 단독이면 세금이 시작되는 지점은 32억(기초 2억 + 배우자공제 한도 30억)", () => {
+    expect(taxFreeCeiling(true, true)).toBe(3_200_000_000);
+  });
+
+  it("40억을 배우자 혼자 받으면 일괄공제를 못 써 과세표준 8억", () => {
+    const r = calcInheritanceTax({
+      ...alone,
+      realEstate: 4_000_000_000,
+      spouseShare: 4_000_000_000,
+      spouseLegalShare: 4_000_000_000,
+    });
+    expect(r.personalTotal).toBe(200_000_000);
+    expect(r.spouseDeduction).toBe(3_000_000_000);
+    expect(r.taxBase).toBe(800_000_000);
+  });
+});

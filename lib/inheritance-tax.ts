@@ -128,6 +128,9 @@ export interface HeirInfo {
   elderly: number;
   /** 장애인 수와 각자의 기대여명 연수 */
   disabledYears: number[];
+  /** 배우자가 단독으로 상속하는지 (자녀도 부모도 없을 때).
+   *  이때는 일괄공제 5억을 쓸 수 없다(제21조 제2항). */
+  spouseAlone?: boolean;
 }
 
 export interface InheritanceInput {
@@ -219,8 +222,11 @@ export function calcInheritanceTax(input: InheritanceInput): InheritanceResult {
   const personalSum =
     BASIC_DEDUCTION + childTotal + minorTotal + elderlyTotal + disabledTotal;
 
-  // 일괄공제 5억과 비교해 큰 쪽
-  const usedLumpSum = LUMP_SUM_DEDUCTION > personalSum;
+  // 일괄공제 5억과 비교해 큰 쪽.
+  // ⚠️ 배우자가 단독으로 상속받으면 일괄공제를 쓸 수 없고 기초+인적공제만 된다
+  //    (제21조 제2항). 2026-09-27에 추가 — 예전에는 이 경우에도 5억을 공제했다.
+  const lumpSumAllowed = !(h.hasSpouse && h.spouseAlone);
+  const usedLumpSum = lumpSumAllowed && LUMP_SUM_DEDUCTION > personalSum;
   const personalTotal = usedLumpSum ? LUMP_SUM_DEDUCTION : personalSum;
 
   // ── 배우자상속공제
@@ -255,7 +261,9 @@ export function calcInheritanceTax(input: InheritanceInput): InheritanceResult {
       amount: personalTotal,
       note: usedLumpSum
         ? `기초+인적공제 합계(${personalSum.toLocaleString()}원)보다 커서 일괄공제를 택했습니다`
-        : `일괄공제 5억보다 커서 이쪽을 택했습니다`,
+        : lumpSumAllowed
+          ? `일괄공제 5억보다 커서 이쪽을 택했습니다`
+          : `배우자가 혼자 상속하면 일괄공제 5억을 쓸 수 없습니다(제21조 제2항)`,
     },
   ];
   if (h.hasSpouse) {
@@ -314,6 +322,9 @@ export function calcInheritanceTax(input: InheritanceInput): InheritanceResult {
  * 세금이 나오기 시작하는 상속재산 규모를 역산한다.
  * "우리 집은 상속세 낼 일이 있나"에 바로 답하기 위한 것.
  */
-export function taxFreeCeiling(hasSpouse: boolean): number {
+export function taxFreeCeiling(hasSpouse: boolean, spouseAlone = false): number {
+  // 배우자 단독상속이면 일괄공제 대신 기초공제 2억만 쓴다(제21조 제2항).
+  // 대신 재산 전부가 배우자 몫이라 배우자공제가 한도(30억)까지 커진다.
+  if (hasSpouse && spouseAlone) return BASIC_DEDUCTION + SPOUSE_MAX_DEDUCTION;
   return LUMP_SUM_DEDUCTION + (hasSpouse ? SPOUSE_MIN_DEDUCTION : 0);
 }

@@ -6,13 +6,15 @@ import type { Guide } from "./guide-types";
 // ⚠️ 3개월 기한(단순승인 확정)과의 관계를 반드시 유지할 것.
 //    faq에는 ** 를 쓰지 말 것 — JSON-LD로도 나간다.
 
+const LAW = "https://www.law.go.kr/법령";
+
 export const guides3: Guide[] = [
   {
     slug: "find-inherited-assets",
     title: "부모님 재산을 모를 때 — 안심상속 원스톱 서비스로 한 번에 조회",
     description:
       "예금·부동산·자동차·보험·대출을 한 번의 신청으로 조회할 수 있습니다. 3개월 기한 안에 빚까지 파악해야 하므로, 상속에서 가장 먼저 해야 할 일입니다.",
-    updated: "2026-08-21",
+    updated: "2026-09-27",
     intro: [
       "상속 계산기를 앞에 두고도 아무것도 못 넣는 경우가 있습니다. **재산이 얼마인지 모르기 때문**입니다.",
       "부모님이 어느 은행을 쓰셨는지, 보험이 있었는지, 빚이 있었는지 자녀가 모르는 경우가 오히려 흔합니다. 그런데 상속 포기와 한정승인은 **안 날로부터 3개월**이라는 기한이 걸려 있어, 모른 채로 시간이 지나면 빚까지 그대로 물려받게 됩니다.",
@@ -101,5 +103,11 @@ export const guides3: Guide[] = [
     ],
     related: ["first-30-days", "renounce-or-limited", "inheritance-tax-threshold"],
     cta: { href: "/calc/deadline", label: "상속 기한 D-day 확인하기" },
+    sources: [
+      { label: "정부24 — 안심상속 원스톱 서비스", href: "https://www.gov.kr/portal/onestopSvc/safeInheritance", note: "조회 대상과 신청 방법" },
+      { label: "대한민국 정책브리핑 — 신청 기한", href: "https://www.korea.kr/news/policyNewsView.do?newsId=148931775", note: "사망일이 속한 달의 말일부터 1년" },
+      { label: "민법 제1019조", href: `${LAW}/민법/제1019조`, note: "포기·한정승인 3개월" },
+      { label: "민법 제1026조", href: `${LAW}/민법/제1026조`, note: "처분 시 단순승인" },
+    ],
   },
 ];

@@ -7,13 +7,15 @@ import type { Guide } from "./guide-types";
 // ⚠️ 세무·법률 자문이 아니다. 계약 구조에 따라 결론이 갈리므로 단정하지 말 것.
 //    faq에는 ** 를 쓰지 말 것.
 
+const LAW = "https://www.law.go.kr/법령";
+
 export const guides5: Guide[] = [
   {
     slug: "death-insurance-money",
     title: "사망보험금은 상속재산인가 — 상속을 포기해도 받는 경우가 있습니다",
     description:
       "사망보험금은 민법상 상속재산이 아닌 경우가 많아 상속을 포기해도 받을 수 있습니다. 그런데 상속세는 매겨질 수 있습니다. 이 어긋남을 계약 구조로 정리했습니다.",
-    updated: "2026-08-23",
+    updated: "2026-09-27",
     intro: [
       "부모님이 돌아가시고 정리를 하다 보면 **사망보험금**을 마주합니다. 금액이 큰 경우가 많아 판단이 중요해집니다.",
       "여기서 두 가지 질문이 동시에 생깁니다. **\"빚이 많아 상속을 포기하면 이 돈도 못 받나?\"** 와 **\"이 돈에도 상속세를 내야 하나?\"** 입니다.",
@@ -112,5 +114,11 @@ export const guides5: Guide[] = [
     ],
     related: ["find-inherited-assets", "renounce-or-limited", "first-30-days"],
     cta: { href: "/calc/deadline", label: "상속 기한 D-day 확인하기" },
+    sources: [
+      { label: "상속세 및 증여세법 제8조", href: `${LAW}/상속세및증여세법/제8조`, note: "상속재산으로 보는 보험금 — 실질 보험료 납부자 기준" },
+      { label: "상속세 및 증여세법 제10조", href: `${LAW}/상속세및증여세법/제10조`, note: "상속재산으로 보는 퇴직금 — 국민연금 유족연금 등은 제외" },
+      { label: "민법 제1019조", href: `${LAW}/민법/제1019조`, note: "포기·한정승인 3개월" },
+      { label: "민법 제1026조", href: `${LAW}/민법/제1026조`, note: "상속재산 처분 시 단순승인" },
+    ],
   },
 ];

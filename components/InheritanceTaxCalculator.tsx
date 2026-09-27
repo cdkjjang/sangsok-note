@@ -25,17 +25,21 @@ export default function InheritanceTaxCalculator() {
   const [priorGift, setPriorGift] = useState("0");
   const [hasSpouse, setHasSpouse] = useState<"yes" | "no">("yes");
   const [children, setChildren] = useState("2");
+  const [parents, setParents] = useState("0");
   const [spouseShare, setSpouseShare] = useState("0");
   const [cohabitHouse, setCohabitHouse] = useState("0");
   const [filedInTime, setFiledInTime] = useState<"yes" | "no">("yes");
 
   const childCount = parseMoney(children) ?? 0;
   const spouse = hasSpouse === "yes";
+  // 자녀가 없으면 고인의 부모(2순위)가 배우자와 함께 상속한다.
+  const parentCount = childCount === 0 ? Math.min(2, parseMoney(parents) ?? 0) : 0;
+  const spouseAlone = spouse && childCount === 0 && parentCount === 0;
 
-  // 배우자의 법정상속분 상당액 — 배우자 1.5 : 자녀 각 1
+  // 배우자의 법정상속분 상당액 — 배우자 1.5 : 자녀(자녀가 없으면 부모) 각 1
   const estateForShare =
     won(realEstate) + won(financial) - won(financialDebt) - won(otherDebt);
-  const units = (spouse ? 1.5 : 0) + childCount;
+  const units = (spouse ? 1.5 : 0) + (childCount > 0 ? childCount : parentCount);
   const spouseLegalShare =
     spouse && units > 0 ? Math.max(0, estateForShare) * (1.5 / units) : 0;
 
@@ -45,7 +49,8 @@ export default function InheritanceTaxCalculator() {
     financialDebt: won(financialDebt),
     otherDebt: won(otherDebt),
     priorGift: won(priorGift),
-    spouseShare: won(spouseShare),
+    // 배우자 단독상속이면 재산 전부가 배우자 몫이다(입력값을 쓰지 않는다).
+    spouseShare: spouseAlone ? Math.max(0, estateForShare) : won(spouseShare),
     spouseLegalShare,
     cohabitHouse: won(cohabitHouse),
     filedInTime: filedInTime === "yes",
@@ -55,10 +60,11 @@ export default function InheritanceTaxCalculator() {
       minorAges: [],
       elderly: 0,
       disabledYears: [],
+      spouseAlone,
     },
   });
 
-  const ceiling = taxFreeCeiling(spouse);
+  const ceiling = taxFreeCeiling(spouse, spouseAlone);
 
   return (
     <div className="rounded-2xl border border-border-soft bg-card p-5 shadow-sm">
@@ -88,7 +94,7 @@ export default function InheritanceTaxCalculator() {
       />
       <MoneyField
         label="그 밖의 채무 + 장례비"
-        hint="장례비는 증빙 있으면 최대 1천만원(봉안시설 별도)"
+        hint="장례비는 최소 500만원, 증빙 있으면 최대 1천만원(봉안시설 500만원 별도)"
         unit="만원"
         value={otherDebt}
         onChange={setOtherDebt}
@@ -118,7 +124,18 @@ export default function InheritanceTaxCalculator() {
         placeholder="2"
       />
 
-      {spouse && (
+      {spouse && childCount === 0 && (
+        <MoneyField
+          label="살아 계신 고인의 부모님 수"
+          hint="자녀가 없으면 부모님이 배우자와 함께 상속합니다. 0명이면 배우자가 전부 상속합니다 — 일괄공제 대신 기초공제 2억이지만 배우자공제가 30억까지 커집니다"
+          unit="명"
+          value={parents}
+          onChange={setParents}
+          placeholder="0"
+        />
+      )}
+
+      {spouse && !spouseAlone && (
         <MoneyField
           label="배우자가 실제로 상속받는 금액"
           hint="협의분할 결과. 모르면 0으로 두세요 — 최소 5억은 공제됩니다"

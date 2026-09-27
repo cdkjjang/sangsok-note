@@ -83,8 +83,9 @@ export default function LegalShareCalculator() {
                 <p className="mt-1 text-sm text-muted">
                   지분 {(p.ratioEach * 100).toFixed(1)}%
                   {p.count > 1 && ` · ${p.count}명 합계 ${formatWon(p.amountTotal)}`}
-                  {" · 유류분 "}
-                  {formatWon(p.reservedEach)}
+                  {p.type === "sibling"
+                    ? " · 유류분 없음(2024년 민법 개정으로 삭제)"
+                    : ` · 유류분 ${formatWon(p.reservedEach)}`}
                 </p>
               </li>
             ))}
