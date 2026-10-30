@@ -71,9 +71,9 @@ export default function DeadlinePage() {
 
       <DeadlineCalculator />
 
-      <NextStep calc="/calc/deadline" />
-
       <AdSlot slot="deadline-below-tool" />
+
+      <NextStep calc="/calc/deadline" />
 
       <section className="mt-10 space-y-4 text-[15px] leading-relaxed">
         <h2 className="text-xl font-bold">

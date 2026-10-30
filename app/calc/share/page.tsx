@@ -70,9 +70,9 @@ export default function SharePage() {
 
       <LegalShareCalculator />
 
-      <NextStep calc="/calc/share" />
-
       <AdSlot slot="share-below-tool" />
+
+      <NextStep calc="/calc/share" />
 
       <section className="mt-10 space-y-4 text-[15px] leading-relaxed">
         <h2 className="text-xl font-bold">순위가 먼저, 지분은 그다음</h2>

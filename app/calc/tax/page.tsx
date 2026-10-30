@@ -71,9 +71,9 @@ export default function TaxPage() {
 
       <InheritanceTaxCalculator />
 
-      <NextStep calc="/calc/tax" />
-
       <AdSlot slot="tax-below-tool" />
+
+      <NextStep calc="/calc/tax" />
 
       <section className="mt-10 space-y-4 text-[15px] leading-relaxed">
         <h2 className="text-xl font-bold">대부분의 집은 세금이 나오지 않습니다</h2>

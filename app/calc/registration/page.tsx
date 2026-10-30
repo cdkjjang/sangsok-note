@@ -71,9 +71,9 @@ export default function RegistrationPage() {
 
       <RegistrationCalculator />
 
-      <NextStep calc="/calc/registration" />
-
       <AdSlot slot="registration-below-tool" />
+
+      <NextStep calc="/calc/registration" />
 
       <section className="mt-10 space-y-4 text-[15px] leading-relaxed">
         <h2 className="text-xl font-bold">상속세와 취득세는 다른 세금입니다</h2>
