@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+
+#다음 웹마스터 도구 소유확인 (webmaster.daum.net)
+#DaumWebMasterTool:2fb96eb76fd576ba2bfb0ea13620ca9c6d7655e44f74a189f0b87c60b79c32a7:CNSJIIGOISrSV2aL3hPlgQ==
+
+Sitemap: https://sangsok.lifebanjang.com/sitemap.xml
