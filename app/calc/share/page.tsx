@@ -7,6 +7,7 @@ import LegalShareCalculator from "@/components/LegalShareCalculator";
 import AdSlot from "@/components/AdSlot";
 import CalcNotes from "@/components/CalcNotes";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { jsonLdScript } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "법정상속분 계산기 — 상속 순위와 각자의 몫",
@@ -62,7 +63,7 @@ export default function SharePage() {
 
   return (
     <div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }} />
       <h1 className="mb-2 text-2xl font-extrabold">법정상속분 계산기</h1>
       <p className="mb-6 text-muted">
         누가 상속인이 되는지 먼저 판정하고, 각자의 몫과 유류분을 계산합니다.

@@ -7,6 +7,7 @@ import InheritanceTaxCalculator from "@/components/InheritanceTaxCalculator";
 import AdSlot from "@/components/AdSlot";
 import CalcNotes from "@/components/CalcNotes";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { jsonLdScript } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "상속세 계산기 — 우리 집은 낼 일이 있나",
@@ -62,7 +63,7 @@ export default function TaxPage() {
 
   return (
     <div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }} />
       <h1 className="mb-2 text-2xl font-extrabold">상속세 계산기</h1>
       <p className="mb-6 text-muted">
         재산과 가족 관계를 넣으면 어떤 공제가 얼마나 적용되는지 항목별로 보여주고

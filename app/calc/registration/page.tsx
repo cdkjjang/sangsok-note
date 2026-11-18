@@ -7,6 +7,7 @@ import RegistrationCalculator from "@/components/RegistrationCalculator";
 import AdSlot from "@/components/AdSlot";
 import CalcNotes from "@/components/CalcNotes";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { jsonLdScript } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "상속등기 비용 계산기 — 취득세 2.8%, 무주택은 0.8%",
@@ -62,7 +63,7 @@ export default function RegistrationPage() {
 
   return (
     <div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }} />
       <h1 className="mb-2 text-2xl font-extrabold">상속등기 비용 계산기</h1>
       <p className="mb-6 text-muted">
         부동산을 물려받을 때 드는 취득세와 등기 비용을 계산합니다. 상속세와는

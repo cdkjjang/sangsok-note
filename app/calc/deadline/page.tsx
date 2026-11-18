@@ -7,6 +7,7 @@ import DeadlineCalculator from "@/components/DeadlineCalculator";
 import AdSlot from "@/components/AdSlot";
 import CalcNotes from "@/components/CalcNotes";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { jsonLdScript } from "@/lib/json-ld";
 
 export const metadata: Metadata = {
   title: "상속 기한 D-day 계산기 — 포기 3개월, 신고 6개월",
@@ -62,7 +63,7 @@ export default function DeadlinePage() {
 
   return (
     <div>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(jsonLd) }} />
       <h1 className="mb-2 text-2xl font-extrabold">상속 기한 D-day 계산기</h1>
       <p className="mb-6 text-muted">
         돌아가신 날을 넣으면 포기·한정승인 3개월과 세금 신고 6개월이 각각 언제까지인지
