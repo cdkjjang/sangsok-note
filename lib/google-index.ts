@@ -16,7 +16,10 @@
 //   넣은 뒤 2주간 서치콘솔에서 그 주소의 색인·노출을 확인하고 다음 달 분량을 정한다.
 //   색인 후 4주간 노출 0이면 그 slug만 다시 뺀다(git 이력으로 되돌린다).
 //   기록: E:\클로드\검색개선-기록.md
-export const GOOGLE_INDEXED_GUIDES: ReadonlySet<string> = new Set([]);
+export const GOOGLE_INDEXED_GUIDES: ReadonlySet<string> = new Set([
+  // 2026-11 게이트 통과분(2026-11-20 표 추가·제목 보정 후 4개 모두 통과) — 2주 뒤(12-04) 서치콘솔에서 색인 확인
+  "renounce-or-limited",
+]);
 
 /** 가이드 상세의 robots 메타. 루트 layout의 max-image-preview를 함께 유지한다. */
 export function guideRobots(slug: string) {
